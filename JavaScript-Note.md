@@ -17,8 +17,8 @@
 	var arr = [9,8,7,6,5,4,3,2,1];
 	var temp,min;
 	for(var i = 0; i < arr.length - 1; i++){
+        min = i;
 		for(var j = i+1; j < arr.length; j++){
-			min = i;
 			if(arr[j] < arr[min]){//如果arr[j]比arr[min]小,
 				min = j;          //就将arr[j]的下标赋给min,然后j++,再和arr[min]比大小,直到最后一个数,min就是最小数的下标,arr[min]就是最小数
 			}//if比较结束后,原数组还没有发生变化,因为min是在i与j之外的,只是用来暂存最小数下标的,        	
@@ -60,7 +60,8 @@
     }
 
 ### 2-函数提升
->JS创建函数的方式中,构造函数,函数声明,匿名函数,只有函数声明才存在函数提升
+> JS创建函数的方式中,构造函数,声明函数,匿名函数,只有声明函数才存在函数提升,
+> 声明函数会整体提升到最开始
 
     console.log(f1);//function f1(){}
     console.log(f2);//underfined
@@ -73,3 +74,36 @@
     console.log(f1);//function f1(){}(没有返回值的话,会另外出一次underfined)
     console.log(f2);//underfined
     var f2 = function(){};
+
+
+****
+### JS与json的关系
+> json就是将JS对象用字符串来表示
+> json中,key和value都要用""包裹,键值对之间用逗号分割
+
+#### JS与json的相互转化
+1. var json = JSON.stringify({name:"zhangsan",age:20});
+2. var user = JSON.parse('{"name":"zhangsan","age":"20"}');
+
+#### json遍历要使用 for in 循环
+    var json = {
+        "name":"zhangsan",
+        "age":"20"
+    }
+    for(var key in json){
+        console.log("key"+key+"=>value"+json[key])
+    }
+
+### 使用JS检测数据类型
+  * typeof--------检测数据类型的运算符
+  * instanceof:--检测某个实例是否属于这个类 
+  * constructor:-检测当前实例的构造器
+  * Object.prototype.toString.call:获取当前实例的所属类信息
+   
+### 当把其他类型的值转换为布尔类型
+> 只有0,NaN,空字符串,null,underfined这五个值转换为布尔类型时为false,其他的都为true
+
+### `NaN`
+>not a number : 不是一个数,但他本身属于number类型
+>NaN == NaN :false,NaN和任何其他值都不相等
+>isNaN("12"): false, 当我们使用isNaN检测值时,检测的值不是number类型的,浏览器会默认把值先转换为number类型,然后再去检测
